@@ -1,0 +1,14 @@
+{
+    "name" : "microcks-postman-runtime",
+    "version": "0.0.1",
+    "description": "Postman-runtime integration for Microcks",
+    "dependencies": {
+      "postman-runtime": "6.2.5",
+      "express": "4.15.3",
+      "body-parser": "1.17.2"
+    },
+    "scripts": {
+        "start": "node app.js"
+    },
+    "keywords": ["api", "testing", "microcks"]
+}
