@@ -21,7 +21,7 @@ const app = express()
 app.use(bodyParser.json()); // for parsing application/json
 
 app.post('/tests/:testResultId', function (req, res) {
-  //console.log("Body: " + JSON.stringify(req.body));
+  console.log("Body: " + JSON.stringify(req.body));
   // Retrieve test parameters and check they are valid.
   var testResultId = req.params.testResultId;
   var operation = req.body.operation;
