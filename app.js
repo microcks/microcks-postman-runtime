@@ -1,0 +1,60 @@
+/**
+ * Main application file.
+ */
+'use strict';
+
+// Set default server port to 3000
+var port = process.env.PORT || 3000;
+
+const express = require('express')
+var bodyParser = require('body-parser');
+var cbManager = require('./lib').CallbacksManager;
+var builder = require('./lib').CollectionBuilder;
+var runner = require('./lib').TestRunner;
+
+var isArray = function(a) {
+  return (!!a) && (a.constructor === Array);
+};
+
+const app = express()
+
+app.use(bodyParser.json()); // for parsing application/json
+
+app.post('/tests/:testResultId', function (req, res) {
+  //console.log("Body: " + JSON.stringify(req.body));
+  // Retrieve test parameters and check they are valid.
+  var testResultId = req.params.testResultId;
+  var operation = req.body.operation;
+  var testScript = req.body.testScript;
+  var callbackUrl = req.body.callbackUrl;
+  var requests = req.body.requests;
+
+  // Check validity and warn if missing.
+  if (operation == undefined) {
+    res.status(400).send('operation field is missing into request body');
+  }
+  if (testScript == undefined) {
+    res.status(400).send('testScript field is missing into request body');
+  }
+  if (callbackUrl == undefined) {
+    res.status(400).send('callbackUrl field is missing into request body');
+  }
+  if (requests == undefined || !isArray(requests)) {
+    //res.status(400).send('requests array is missing into request body');
+  }
+
+  console.log('Got a test launch request for id ' + req.params.testResultId + ' - ' + operation);
+
+  // Each request then contain specific endpointUrl that should have been prepared before
+  // and queryParams that will be injected using a prerequest script.
+  var collection = builder.buildCollection(testScript, requests);
+  //console.log("Collection: " + JSON.stringify(collection));
+  var callbacks = cbManager.generateCallbacks(testResultId, operation, requests, callbackUrl);
+  runner.runTests(collection, callbacks);
+
+  res.status(201).send('New Postman collection test launched');
+})
+
+app.listen(port, function () {
+  console.log('Microcks postman-runtime wrapper listening on port: ' + port);
+})
