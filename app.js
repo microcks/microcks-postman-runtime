@@ -22,6 +22,10 @@ winston.level = process.env.LOG_LEVEL || 'info';
 
 app.use(bodyParser.json()); // for parsing application/json
 
+app.get('/health', function (req, res) {
+  res.status(200).send('Microcks postman-runtime is alive');
+})
+
 app.post('/tests/:testResultId', function (req, res) {
   winston.debug("Body: " + JSON.stringify(req.body));
   // Retrieve test parameters and check they are valid.
