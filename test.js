@@ -44,7 +44,7 @@ var collectionJson = {
 					"host": [
 						"httpbin.org"
 					],
-					"port": "80",
+					"port": "443",
 					"path": [
 						"get"
 					],
@@ -307,7 +307,16 @@ runner.run(myCollection, {
     proxies: new sdk.ProxyConfigList(),
 
     // A function that fetches the system proxy for a given URL.
-    systemProxy: function (url, callback) { return callback(null, {/* ProxyConfig object */}) },
+    //systemProxy: function (url, callback) { return callback(null, {/* ProxyConfig object */}) },
+
+		systemProxy: null,
+		//systemProxy: function (url, callback) { return callback(null, {
+			//host: 'proxy.com',
+			//match: 'http+https://*/*',
+			//port: '8080',
+			//tunnel: true,
+			//disabled: false
+		//}) },
 
     // A CertificateList from the SDK
     certificates: new sdk.CertificateList(),
@@ -317,7 +326,7 @@ runner.run(myCollection, {
     systemCertificate: function() {}
 }, function (err, run) {
     console.log('Creating a new Run !');
-    console.log('======================')
+    console.trace('======================')
     // Check the section below for detailed documentation on what callbacks should be.
     run.start(callbacks);
 });
