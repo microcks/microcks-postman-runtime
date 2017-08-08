@@ -2,6 +2,15 @@
     "name" : "microcks-postman-runtime",
     "version": "0.0.1",
     "description": "Postman-runtime integration for Microcks",
+    "license" : "Apache-2.0",
+    "author": {
+      "name": "Laurent Broudoux",
+      "url": "http://github.com/lbroudoux"
+    },
+    "repository" :{
+      "type" : "git",
+      "url" : "https://github.com/microcks/microcks-postman-runtime.git"
+    },
     "dependencies": {
       "postman-runtime": "6.2.5",
       "express": "4.15.3",
