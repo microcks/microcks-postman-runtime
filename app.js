@@ -6,7 +6,8 @@
 // Set default server port to 3000
 var port = process.env.PORT || 3000;
 
-const express = require('express')
+const express = require('express');
+const winston = require('winston');
 var bodyParser = require('body-parser');
 var cbManager = require('./lib').CallbacksManager;
 var builder = require('./lib').CollectionBuilder;
@@ -17,11 +18,12 @@ var isArray = function(a) {
 };
 
 const app = express()
+winston.level = process.env.LOG_LEVEL || 'info';
 
 app.use(bodyParser.json()); // for parsing application/json
 
 app.post('/tests/:testResultId', function (req, res) {
-  console.log("Body: " + JSON.stringify(req.body));
+  winston.debug("Body: " + JSON.stringify(req.body));
   // Retrieve test parameters and check they are valid.
   var testResultId = req.params.testResultId;
   var operation = req.body.operation;
@@ -43,12 +45,12 @@ app.post('/tests/:testResultId', function (req, res) {
     return res.status(400).send('requests array is missing into request body');
   }
 
-  console.log('Got a test launch request for id ' + req.params.testResultId + ' - ' + operation);
+  winston.info('Got a test launch request for id ' + req.params.testResultId + ' - ' + operation);
 
   // Each request then contain specific endpointUrl that should have been prepared before
   // and queryParams that will be injected using a prerequest script.
   var collection = builder.buildCollection(testScript, requests);
-  console.log("Collection: " + JSON.stringify(collection));
+  winston.debug("Collection: " + JSON.stringify(collection));
   var callbacks = cbManager.generateCallbacks(testResultId, operation, requests, callbackUrl);
   runner.runTests(collection, callbacks);
 
