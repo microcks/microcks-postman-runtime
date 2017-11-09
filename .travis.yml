@@ -1,0 +1,15 @@
+sudo: required
+
+language: node_js
+node_js:
+  - "6.11.0"
+
+services:
+  - docker
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker build -t microcks/microcks-postman-runtime .
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker push microcks/microcks-postman-runtime:latest;
+    fi
