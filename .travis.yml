@@ -13,3 +13,9 @@ after_success:
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
     docker push microcks/microcks-postman-runtime:latest;
     fi
+  - if [ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]; then
+    docker build -t microcks/microcks-postman-runtime .;
+    docker tag microcks/microcks-postman-runtime microcks/microcks-postman-runtime:$TRAVIS_TAG;
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker push microcks/microcks-postman-runtime:$TRAVIS_TAG;
+    fi
