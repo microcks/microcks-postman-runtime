@@ -3,7 +3,7 @@ microcks-postman-runtime
 
 ## Build Status
 
-Current development version is `0.1.0-SNAPSHOT`. [![Build Status](https://travis-ci.org/microcks/microcks-postman-runtime.png?branch=master)](https://travis-ci.org/microcks/microcks-postman-runtime)
+Current development version is `0.2.0-SNAPSHOT`. [![Build Status](https://travis-ci.org/microcks/microcks-postman-runtime.png?branch=master)](https://travis-ci.org/microcks/microcks-postman-runtime)
 
 ## Information
 
