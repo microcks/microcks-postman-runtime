@@ -1,6 +1,11 @@
-FROM node:boron-alpine
+FROM node:12-alpine
 
-MAINTAINER Laurent Broudoux <laurent.broudoux@gmail.com>
+MAINTAINER Laurent Broudoux <laurent@microcks.io>
+
+# Some version information
+LABEL io.k8s.description="Microcks is Open Source Kubernetes native tool for API Mocking and Testing" \
+      io.k8s.display-name="Microcks Postman Runtime" \
+      maintainer="Laurent Broudoux <laurent@microcks.io>"
 
 # Define working directory
 RUN mkdir -p /opt/app-root/src && mkdir -p /opt/app-root/src/lib
