@@ -1,5 +1,16 @@
 name: build-package
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - '.gitignore'
+      - 'LICENSE'
+      - 'README*'
+  pull_request:
+    paths-ignore:
+      - '.github/**'
+      - '.gitignore'
+      - 'LICENSE'
+      - 'README*'
 jobs:
   build-package:
     runs-on: ubuntu-latest
@@ -7,17 +18,43 @@ jobs:
     steps:
       # Checkout repository content
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Login to Quay.io Container registry
-        uses: docker/login-action@v1
-        with:
-          registry: quay.io
-          username: ${{ secrets.QUAY_USERNAME }}
-          password: ${{ secrets.QUAY_PASSWORD }}
+      - name: Set environment for branch
+        run: |
+          set -x
+          if [[ $GITHUB_REF == 'refs/heads/master' ]]; then
+            echo "IMAGE_TAG=nightly" >> "$GITHUB_ENV"
+            echo "PACKAGE_IMAGE=true" >> "$GITHUB_ENV"
+          elif [[ $GITHUB_REF == "refs/tags/$GITHUB_REF_NAME" ]]; then
+            echo "IMAGE_TAG=$GITHUB_REF_NAME" >> "$GITHUB_ENV"
+            echo "PACKAGE_IMAGE=true" >> "$GITHUB_ENV"
+          else
+            echo "PACKAGE_IMAGE=false" >> "$GITHUB_ENV"
+          fi
 
-      - name: Build and push Container image
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: quay.io/microcks/microcks-postman-runtime:nightly
+      - name: Set up QEMU
+        if: github.repository_owner == 'microcks' && env.PACKAGE_IMAGE == 'true'
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        if: github.repository_owner == 'microcks' && env.PACKAGE_IMAGE == 'true'
+        uses: docker/setup-buildx-action@v2
+      
+      - name: Login to Quay.io Registry and setup multi-arch builder
+        if: github.repository_owner == 'microcks' && env.PACKAGE_IMAGE == 'true'
+        run: |
+          echo ${{ secrets.QUAY_PASSWORD }} | docker login -u ${{ secrets.QUAY_USERNAME }} --password-stdin quay.io
+          BUILDER=buildx-multi-arch
+          docker buildx inspect $BUILDER || docker buildx create --name=$BUILDER --driver=docker-container --driver-opt=network=host
+
+      - name: Build and push container image
+        if: github.repository_owner == 'microcks' && env.PACKAGE_IMAGE == 'true'
+        run: |
+          docker buildx build --push \
+            --platform=linux/amd64,linux/arm64 \
+            --builder=buildx-multi-arch \
+            --provenance=false \
+            --build-arg TAG=$IMAGE_TAG \
+            --file Dockerfile \
+            --tag=quay.io/microcks/microcks-postman-runtime:$IMAGE_TAG .
