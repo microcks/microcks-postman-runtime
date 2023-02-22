@@ -20,6 +20,10 @@ var isArray = function(a) {
 const app = express()
 winston.level = process.env.LOG_LEVEL || 'info';
 
+// Console logging should have timestamps which are off by default
+winston.remove(winston.transports.Console);
+winston.add(new winston.transports.Console({timestamp: true}));
+
 app.use(bodyParser.json()); // for parsing application/json
 
 app.get('/health', function (req, res) {

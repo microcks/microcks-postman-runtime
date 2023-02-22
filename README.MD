@@ -3,7 +3,7 @@ microcks-postman-runtime
 
 ## Build Status
 
-Current development version is `0.2.0-SNAPSHOT`. [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/microcks/microcks-postman-runtime/build-package?logo=github&style=for-the-badge)](https://github.com/microcks/microcks-postman-runtime/actions)
+Current development version is `0.2.0-SNAPSHOT`. [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/microcks/microcks-postman-runtime/build-package.yml?logo=github&style=for-the-badge)](https://github.com/microcks/microcks-postman-runtime/actions)
 
 ## Information
 
