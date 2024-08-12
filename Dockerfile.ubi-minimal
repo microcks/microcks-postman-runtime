@@ -1,0 +1,54 @@
+FROM registry.access.redhat.com/ubi9/ubi-minimal:9.4-1194
+
+MAINTAINER Laurent Broudoux <laurent@microcks.io>
+
+# Some version information
+LABEL io.k8s.description="Microcks is Open Source Kubernetes native tool for API Mocking and Testing" \
+      io.k8s.display-name="Microcks Postman Runtime" \
+      maintainer="Laurent Broudoux <laurent@microcks.io>"
+
+ENV NODEJS_VERSION=20
+
+# Install Node runtime
+RUN INSTALL_PKGS="nodejs npm tar which" \
+  && microdnf -y module disable nodejs \
+  && microdnf -y module enable nodejs:$NODEJS_VERSION \
+  && microdnf -y --nodocs --setopt=install_weak_deps=0 install $INSTALL_PKGS \
+  && node -v | grep -qe "^v$NODEJS_VERSION\." && echo "Found VERSION $NODEJS_VERSION" \
+  && microdnf clean all \
+  && rm /var/lib/rpm/rpmdb.sqlite \
+  && rm -rf /mnt/rootfs/var/cache/* /mnt/rootfs/var/log/dnf* /mnt/rootfs/var/log/yum.*
+
+# Set the running environment as production
+ENV NODE_ENV production
+ENV LOG_LEVEL info
+ENV PORT 3000
+
+# Define working directory
+ENV APP_ROOT=/app
+WORKDIR ${APP_ROOT}
+
+# root for build stages
+USER root
+
+# Copy files and install dependencies
+COPY lib/ ${APP_ROOT}/lib
+COPY bin/ ${APP_ROOT}/bin
+COPY package*.json ${APP_ROOT}
+COPY app.js ${APP_ROOT}
+RUN cd ${APP_ROOT} \
+    && npm install \
+    && rm -rdf ${APP_ROOT}/.npm /tmp/v8-compile-cache-0
+
+### Setup user for build execution and application runtime
+ENV HOME=${APP_ROOT}
+RUN chmod -R u+x ${APP_ROOT}/bin && \
+    chgrp -R 0 ${APP_ROOT} && \
+    chmod -R g=u ${APP_ROOT} /etc/passwd
+
+### Containers should NOT run as root as a good practice
+USER 1001
+
+# Executing defaults
+EXPOSE 3000
+ENTRYPOINT [ "/app/bin/uid_entrypoint" ]

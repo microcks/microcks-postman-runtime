@@ -57,15 +57,19 @@ app.post('/tests/:testResultId', function (req, res) {
 
   // Check validity and warn if missing.
   if (operation == undefined) {
+    winston.error('operation field is missing into request body, returning 400');
     return res.status(400).send('operation field is missing into request body');
   }
   if (testScript == undefined) {
+    winston.error('testScript field is missing into request body, returning 400');
     return res.status(400).send('testScript field is missing into request body');
   }
   if (callbackUrl == undefined) {
+    winston.error('callbackUrl field is missing into request body, returning 400');
     return res.status(400).send('callbackUrl field is missing into request body');
   }
   if (requests == undefined || !isArray(requests)) {
+    winston.error('requests array is missing into request body, returning 400');
     return res.status(400).send('requests array is missing into request body');
   }
 
@@ -81,6 +85,26 @@ app.post('/tests/:testResultId', function (req, res) {
   res.status(201).send('New Postman collection test launched');
 })
 
-app.listen(port, function () {
+const server = app.listen(port, function () {
   console.log('Microcks postman-runtime wrapper listening on port: ' + port);
 })
+
+function gracefulShutdown() {
+  console.log('Shutting down gracefully...');
+
+  server.close(() => {
+    console.log('Server closed.');
+
+    // Close any other connections or resources here
+    process.exit(0);
+  });
+
+  // Force close the server after 5 seconds
+  setTimeout(() => {
+    console.error('Could not close connections in time, forcefully shutting down');
+    process.exit(1);
+  }, 5000);
+}
+
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);

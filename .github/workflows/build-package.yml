@@ -56,5 +56,5 @@ jobs:
             --builder=buildx-multi-arch \
             --provenance=false \
             --build-arg TAG=$IMAGE_TAG \
-            --file Dockerfile \
+            --file Dockerfile.ubi-minimal \
             --tag=quay.io/microcks/microcks-postman-runtime:$IMAGE_TAG .
