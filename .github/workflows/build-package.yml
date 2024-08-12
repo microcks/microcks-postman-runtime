@@ -3,14 +3,25 @@ on:
   push:
     paths-ignore:
       - '.gitignore'
+      - 'ADOPTERS*'
       - 'LICENSE'
       - 'README*'
+      - 'CHANGELOG*'
+      - 'ROADMAP*'
+      - 'SECURITY*'
+      - 'GOVERNANCE*'
   pull_request:
     paths-ignore:
       - '.github/**'
       - '.gitignore'
+      - 'ADOPTERS*'
       - 'LICENSE'
       - 'README*'
+      - 'CHANGELOG*'
+      - 'ROADMAP*'
+      - 'SECURITY*'
+      - 'GOVERNANCE*'
+permissions: read-all
 jobs:
   build-package:
     runs-on: ubuntu-latest
