@@ -9,9 +9,9 @@
 
 ## Build Status
 
-Latest released version is `0.4.0`.
+Latest released version is `0.5.0`.
 
-Current development version is `0.5.0-SNAPSHOT`.
+Current development version is `0.6.0-SNAPSHOT`.
 
 ## How to use it?
 
