@@ -77,7 +77,7 @@ jobs:
       - name: Sign the image with GitHub OIDC Token
         env:
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
-          TAGS: quay.io/microcks/microcks-postman-runtim:${{env.IMAGE_TAG}}
+          TAGS: quay.io/microcks/microcks-postman-runtime:${{env.IMAGE_TAG}}
           COSIGN_EXPERIMENTAL: "true"
         run: |
           images=""
