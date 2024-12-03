@@ -68,7 +68,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           builder: buildx-multi-arch
-          file: Dockerfile.ubi-minima
+          file: Dockerfile.ubi-minimal
           labels: |
             org.opencontainers.image.revision=${GITHUB_SHA}
             org.opencontainers.image.created=${{ steps.date.outputs.date }}
