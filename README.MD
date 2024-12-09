@@ -3,7 +3,7 @@
 `microcks-postman-runtime` is a thin HTTP wrapper around [`postman-runtime`](https://github.com/postmanlabs/postman-runtime/) lib. It allows running tests for Microcks and then sending results on a `callbackUrl`
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/microcks/microcks-postman-runtime/build-package.yml?logo=github&style=for-the-badge)](https://github.com/microcks/microcks-postman-runtime/actions)
-[![Container](https://img.shields.io/badge/dynamic/json?color=blueviolet&logo=docker&style=for-the-badge&label=Quay.io&query=tags[0].name&url=https://quay.io/api/v1/repository/microcks/microcks-postman-runtime/tag/?limit=10&page=1&onlyActiveTags=true)](https://quay.io/repository/microcks/microcks-postman-runtime?tab=tags)
+[![Container](https://img.shields.io/badge/dynamic/json?color=blueviolet&logo=docker&style=for-the-badge&label=Quay.io&query=tags[1].name&url=https://quay.io/api/v1/repository/microcks/microcks-postman-runtime/tag/?limit=10&page=1&onlyActiveTags=true)](https://quay.io/repository/microcks/microcks-postman-runtime?tab=tags)
 [![License](https://img.shields.io/github/license/microcks/microcks-postman-runtime?style=for-the-badge&logo=apache)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Project Chat](https://img.shields.io/badge/discord-microcks-pink.svg?color=7289da&style=for-the-badge&logo=discord)](https://microcks.io/discord-invite/)
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/microcks-postman-runtime-image&style=for-the-badge)](https://artifacthub.io/packages/search?repo=microcks-postman-runtime-image)
@@ -20,6 +20,10 @@ Current development version is `0.7.0-SNAPSHOT`.
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmicrocks%2Fmicrocks-postman-runtime.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmicrocks%2Fmicrocks-postman-runtime?ref=badge_shield&issueType=license)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmicrocks%2Fmicrocks-postman-runtime.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmicrocks%2Fmicrocks-postman-runtime?ref=badge_shield&issueType=security)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmicrocks%2Fmicrocks-postman-runtime.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmicrocks%2Fmicrocks-postman-runtime?ref=badge_small)
+
+#### Signature, Provenance, SBOM
+
+[![Static Badge](https://img.shields.io/badge/supply_chain-documentation-blue?logo=securityscorecard&label=Supply%20Chain&link=https%3A%2F%2Fmicrocks.io%2Fdocumentation%2Freferences%2Fcontainer-images%23software-supply-chain-security)](https://microcks.io/documentation/references/container-images#software-supply-chain-security)
 
 #### OpenSSF best practices on Microcks core
 
