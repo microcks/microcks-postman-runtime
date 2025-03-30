@@ -43,7 +43,7 @@ jobs:
 
       - name: Install Cosign
         if: github.repository_owner == 'microcks' && env.PACKAGE_IMAGE == 'true'
-        uuses: sigstore/cosign-installer@d7d6bc7722e3daa8354c50bcb52f4837da5e9b6a # v3.8.1
+        uses: sigstore/cosign-installer@d7d6bc7722e3daa8354c50bcb52f4837da5e9b6a # v3.8.1
 
       - name: Set up QEMU
         if: github.repository_owner == 'microcks' && env.PACKAGE_IMAGE == 'true'
