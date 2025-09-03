@@ -9,7 +9,7 @@ LABEL maintainer="Laurent Broudoux <laurent@microcks.io>" \
       org.opencontainers.image.documentation="https://github.com/microcks/microcks-postman-runtime" \
       io.artifacthub.package.readme-url="https://raw.githubusercontent.com/microcks/microcks-postman-runtime/master/README.MD"
 
-ENV NODEJS_VERSION=20
+ENV NODEJS_VERSION=22
 
 # Install Node runtime
 RUN INSTALL_PKGS="nodejs npm tar which" \

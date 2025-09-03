@@ -1,6 +1,6 @@
 {
   "name": "microcks-postman-runtime",
-  "version": "0.6.2-SNAPSHOT",
+  "version": "0.7.0-SNAPSHOT",
   "description": "Postman-runtime integration for Microcks",
   "license": "Apache-2.0",
   "author": {
@@ -19,6 +19,9 @@
   },
   "scripts": {
     "start": "node app.js"
+  },
+  "engines": {
+    "node": ">= 22"
   },
   "keywords": [
     "api",
