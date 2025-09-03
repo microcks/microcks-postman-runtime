@@ -15,7 +15,7 @@
     "postman-runtime": "7.41.1",
     "express": "4.21.2",
     "body-parser": "1.20.3",
-    "winston": "3.14.1"
+    "winston": "3.17.0"
   },
   "scripts": {
     "start": "node app.js"
