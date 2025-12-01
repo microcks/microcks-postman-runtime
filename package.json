@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "postman-runtime": "7.48.0",
-    "express": "4.21.2",
+    "express": "5.2.0",
     "body-parser": "2.2.1",
     "winston": "3.17.0"
   },
