@@ -12,7 +12,7 @@
     "url": "https://github.com/microcks/microcks-postman-runtime.git"
   },
   "dependencies": {
-    "postman-runtime": "7.48.0",
+    "postman-runtime": "7.50.0",
     "express": "4.21.2",
     "body-parser": "2.2.1",
     "winston": "3.17.0"
