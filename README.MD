@@ -11,9 +11,9 @@
 
 ## Build Status
 
-Latest released version is `0.7.1`.
+Latest released version is `0.7.2`.
 
-Current development version is `0.7.2-SNAPSHOT`.
+Current development version is `0.8.0-SNAPSHOT`.
 
 #### Fossa license and security scans
 
